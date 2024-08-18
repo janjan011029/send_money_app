@@ -60,3 +60,22 @@ To run the integration test
 ```bash
     flutter test test/integration_test/
 ```
+
+## Features
+
+*  Wallet Balance: Includes show and hide functionality.
+*  Send Money transaction: Allows users to send money through the app.
+*  View detailed transaction history: Provides a detailed history of all transactions.
+
+## Technologies Used
+
+* Flutter: Cross-platform framework for building mobile applications.
+* Dart: Programming language used with Flutter.
+* mockfly API: Customizable API integration.
+* Bloc State Management: Utilizing the Bloc library for state management.
+* Repository Pattern: Utilizing the repository pattern for data management and abstraction.
+* Clean Architecture: Following the principles of Clean Architecture for organized and maintainable code.
+* GoRouter: Implementing the GoRouter package for navigation within the app.
+* Dio: A powerful HTTP client for Dart, used for making network requests.
+* Unit testing: Focuses on testing individual units or components of the app, ensuring that each part functions correctly in isolation.
+* Integration testing: Validates the interaction between various modules and the overall flow of the app, ensuring that all components work together as expected.
