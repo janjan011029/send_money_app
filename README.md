@@ -36,7 +36,7 @@ Replace your_api_key_here with the value provided in the email I sent you.
 After setting up the .env file, you can run the app:
 
 ```bash
-    flutter run
+    flutter run --dart-define-from-file=.env
 ```
 
 Or just go to the VSCode Run and Debug Icon in your Upper left side
