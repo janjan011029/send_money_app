@@ -15,6 +15,17 @@ enum AppPage {
   history(
     path: '/history',
     name: 'History',
+  ),
+
+  //* Profile Pages
+  profile(
+    path: '/profile',
+    name: 'Profile',
+  ),
+
+  savings(
+    path: '/savings',
+    name: 'Savings',
   );
 
   final String path;

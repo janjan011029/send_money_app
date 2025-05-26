@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:send_money_app/features/transaction/domain/models/transaction_model.dart';
+import 'package:send_money_app/features/transaction/data/models/transaction_model.dart';
 import 'package:send_money_app/features/transaction/domain/repositories/i_transaction_repository.dart';
 import 'package:send_money_app/features/transaction/presentation/bloc/transaction/transaction_bloc.dart';
 

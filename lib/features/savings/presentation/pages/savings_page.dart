@@ -28,6 +28,7 @@ class _SavingsPageState extends State<SavingsPage> {
     cubit = context.read<SavingsCubit>();
 
     bloc.add(GetHistory(items: cubit.state.items));
+    
     super.initState();
   }
 
@@ -35,74 +36,79 @@ class _SavingsPageState extends State<SavingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hi Janjan'),
+        title: const Text('Hi Janjan!'),
       ),
-      body: Column(
-        children: [
-          BlocBuilder<SavingsCubit, SavingsState>(
-            bloc: cubit,
-            buildWhen: (previous, current) => previous != current,
-            builder: (context, state) {
-              return CardWidget(
-                key: const Key('Card'),
-                isHidden: state.isHidden,
-                amount: state.amount,
-                onTap: () => cubit.showSavings(!state.isHidden),
-                sendMoney: () => context.push(AppPage.transaction.path),
-              );
-            },
-          ),
-          TransactionHeader(
-            title: 'Transaction History',
-            onTap: () => context.push(AppPage.history.path),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: BlocBuilder<HistoryBloc, HistoryState>(
-                bloc: bloc,
-                builder: (context, state) {
-                  if (state is HistoryLoadingState) {
-                    return const MoneyLoading();
-                  }
+      body: RefreshIndicator(
+        onRefresh: () async {
+          bloc.add(GetHistory(items: cubit.state.items));
+        },
+        child: Column(
+          children: [
+            BlocBuilder<SavingsCubit, SavingsState>(
+              bloc: cubit,
+              buildWhen: (previous, current) => previous != current,
+              builder: (context, state) {
+                return CardWidget(
+                  key: const Key('Card'),
+                  isHidden: state.isHidden,
+                  amount: state.amount,
+                  onTap: () => cubit.showSavings(!state.isHidden),
+                  sendMoney: () => context.push(AppPage.transaction.path),
+                );
+              },
+            ),
+            TransactionHeader(
+              title: 'Recent History',
+              onTap: () => context.go(AppPage.history.path),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: BlocBuilder<HistoryBloc, HistoryState>(
+                  bloc: bloc,
+                  builder: (context, state) {
+                    if (state is HistoryErrorState) {
+                      return Center(
+                        child: Text(state.message),
+                      );
+                    }
 
-                  if (state is HistoryEmptyState) {
-                    return const Center(
-                      child: Text('No Items Found.'),
-                    );
-                  }
+                    if (state is HistoryLoadingState) {
+                      return const MoneyLoading();
+                    }
 
-                  if (state is HistoryErrorState) {
-                    return Center(
-                      child: Text(state.message),
-                    );
-                  }
+                    if (state is HistoryEmptyState) {
+                      return const Center(
+                        child: Text('No Items Found.'),
+                      );
+                    }
 
-                  if (state is HistoryLoadedState) {
-                    final transactions = state.historyItems;
-                    return ListView.builder(
-                      itemCount: min(transactions.length, 5),
-                      itemBuilder: (context, index) {
-                        final transaction = transactions[index];
-                        final title = transaction.name;
-                        final date = transaction.date;
-                        final amount = transaction.amount;
+                    if (state is HistoryLoadedState) {
+                      final transactions = state.historyItems;
+                      return ListView.builder(
+                        itemCount: min(transactions.length, 5),
+                        itemBuilder: (context, index) {
+                          final transaction = transactions[index];
+                          final title = transaction.name;
+                          final date = transaction.date;
+                          final amount = transaction.amount;
 
-                        return TransactionItem(
-                          title: title,
-                          date: date,
-                          amount: amount.toString(),
-                        );
-                      },
-                    );
-                  }
+                          return TransactionItem(
+                            title: title,
+                            date: date,
+                            amount: amount.toString(),
+                          );
+                        },
+                      );
+                    }
 
-                  return const SizedBox();
-                },
+                    return const SizedBox();
+                  },
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

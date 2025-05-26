@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../router/route_utils.dart';
 
@@ -42,10 +43,7 @@ class Notify {
                 ElevatedButton(
                   child: const Text('Okay'),
                   onPressed: () {
-                    Navigator.popUntil(
-                      context,
-                      ModalRoute.withName(AppPage.home.path),
-                    );
+                    context.go(AppPage.savings.path);
                   },
                 ),
               ],

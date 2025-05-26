@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:send_money_app/api/client.dart';
 import 'package:send_money_app/features/history/domain/repositories/history_repository.dart';
 import 'package:send_money_app/features/history/presentation/bloc/history_bloc.dart';
+import 'package:send_money_app/features/home/presentation/cubit/bottom_nav_index_cubit.dart';
 import 'package:send_money_app/features/savings/presentation/cubit/savings_cubit.dart';
 import 'package:send_money_app/router/route.dart';
+
 final _myRouter = MyRouter();
 
 class MyApp extends StatelessWidget {
@@ -22,6 +24,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SavingsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ButtonNavIndexCubit(),
         ),
       ],
       child: MaterialApp.router(

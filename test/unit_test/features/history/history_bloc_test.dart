@@ -4,7 +4,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:send_money_app/features/history/domain/repositories/i_history_repository.dart';
 import 'package:send_money_app/features/history/presentation/bloc/history_bloc.dart';
-import 'package:send_money_app/features/transaction/domain/models/transaction_model.dart';
+import 'package:send_money_app/features/transaction/data/models/transaction_model.dart';
 
 import 'history_bloc_test.mocks.dart';
 

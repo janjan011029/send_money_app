@@ -6,7 +6,7 @@
 import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:send_money_app/features/transaction/domain/models/transaction_model.dart'
+import 'package:send_money_app/features/transaction/data/models/transaction_model.dart'
     as _i2;
 import 'package:send_money_app/features/transaction/domain/repositories/i_transaction_repository.dart'
     as _i3;

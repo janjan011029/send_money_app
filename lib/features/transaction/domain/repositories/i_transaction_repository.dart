@@ -1,4 +1,4 @@
-import '../models/transaction_model.dart';
+import '../../data/models/transaction_model.dart';
 
 abstract class ITransactionRepository {
   Future<TransactionModel> sendMoney({

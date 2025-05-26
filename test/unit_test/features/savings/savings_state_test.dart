@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:send_money_app/features/savings/presentation/cubit/savings_cubit.dart';
-import 'package:send_money_app/features/transaction/domain/models/transaction_model.dart';
+import 'package:send_money_app/features/transaction/data/models/transaction_model.dart';
 
 void main() {
   test('SavingsState test', () {

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:send_money_app/utils/helpers/transaction_helper.dart';
 
 import '../../../../../api/client.dart';
-import '../../domain/models/transaction_model.dart';
+import '../../data/models/transaction_model.dart';
 import '../../../../../widgets/custom_button.dart';
 import '../../../../../widgets/custom_text_field_widget.dart';
 import '../../../history/presentation/bloc/history_bloc.dart';
@@ -56,6 +56,11 @@ class _TransactionPageState extends State<TransactionPage> {
       create: (context) => bloc,
       child: BlocListener<TransactionBloc, TransactionState>(
         listener: (context, state) async {
+          if (state is TransactionErrorState) {
+            final errMessage = state.message;
+            notify.showBottomSheet(context, false, errMessage);
+          }
+          
           if (state is TransactionLoadingState) {
             notify.showLoading(context);
           }
@@ -78,11 +83,6 @@ class _TransactionPageState extends State<TransactionPage> {
 
             notify.showBottomSheet(context, true, '');
           }
-
-          if (state is TransactionErrorState) {
-            final errMessage = state.message;
-            notify.showBottomSheet(context, false, errMessage);
-          }
         },
         child: BlocBuilder<TransactionBloc, TransactionState>(
           bloc: bloc,
@@ -100,7 +100,7 @@ class _TransactionPageState extends State<TransactionPage> {
                     ),
                     const SizedBox(height: 15),
                     CustomTextField(
-                       key: const Key('AmountKey'),
+                      key: const Key('AmountKey'),
                       controller: amountController,
                       isNumberOnly: true,
                       hintText: 'Amount',

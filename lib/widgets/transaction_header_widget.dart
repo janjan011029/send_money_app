@@ -29,7 +29,7 @@ class TransactionHeader extends StatelessWidget with SharedTextStyles {
             key: const Key('ViewAllKey'),
             onTap: onTap,
             child: Text(
-              'View Transaction',
+              'View All',
               style: underLineTextStyle,
             ),
           ),

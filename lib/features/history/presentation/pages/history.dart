@@ -23,6 +23,7 @@ class _HistoryPageState extends State<HistoryPage> {
     cubit = context.read<SavingsCubit>();
 
     bloc.add(GetHistory(items: cubit.state.items));
+
     super.initState();
   }
 
@@ -34,46 +35,52 @@ class _HistoryPageState extends State<HistoryPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: BlocBuilder<HistoryBloc, HistoryState>(
-          bloc: bloc,
-          builder: (context, state) {
-            if (state is HistoryLoadingState) {
-              return const MoneyLoading();
-            }
+        child: RefreshIndicator(
+          onRefresh: () => Future.delayed(
+            const Duration(seconds: 1),
+            () => bloc.add(GetHistory(items: cubit.state.items)),
+          ),
+          child: BlocBuilder<HistoryBloc, HistoryState>(
+            bloc: bloc,
+            builder: (context, state) {
+              if (state is HistoryLoadingState) {
+                return const MoneyLoading();
+              }
 
-            if (state is HistoryEmptyState) {
-              return const Center(
-                child: Text('No Items Found.'),
-              );
-            }
+              if (state is HistoryEmptyState) {
+                return const Center(
+                  child: Text('No Items Found.'),
+                );
+              }
 
-            if (state is HistoryErrorState) {
-              return Center(
-                child: Text(state.message),
-              );
-            }
+              if (state is HistoryErrorState) {
+                return Center(
+                  child: Text(state.message),
+                );
+              }
 
-            if (state is HistoryLoadedState) {
-              final transactions = state.historyItems;
-              return ListView.builder(
-                itemCount: transactions.length,
-                itemBuilder: (context, index) {
-                  final transaction = transactions[index];
-                  final title = transaction.name;
-                  final date = transaction.date;
-                  final amount = transaction.amount;
+              if (state is HistoryLoadedState) {
+                final transactions = state.historyItems;
+                return ListView.builder(
+                  itemCount: transactions.length,
+                  itemBuilder: (context, index) {
+                    final transaction = transactions[index];
+                    final title = transaction.name;
+                    final date = transaction.date;
+                    final amount = transaction.amount;
 
-                  return TransactionItem(
-                    title: title,
-                    date: date,
-                    amount: amount.toString(),
-                  );
-                },
-              );
-            }
+                    return TransactionItem(
+                      title: title,
+                      date: date,
+                      amount: amount.toString(),
+                    );
+                  },
+                );
+              }
 
-            return const SizedBox();
-          },
+              return const SizedBox();
+            },
+          ),
         ),
       ),
     );

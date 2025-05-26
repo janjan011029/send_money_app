@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:send_money_app/utils/api_urls.dart';
 
 import '../../../../../api/client.dart';
-import '../../../transaction/domain/models/transaction_model.dart';
+import '../../../transaction/data/models/transaction_model.dart';
 import 'i_history_repository.dart';
 class HistoryRepository implements IHistoryRepository {
   final DioClient _dioClient;

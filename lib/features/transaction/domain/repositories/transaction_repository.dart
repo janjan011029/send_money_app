@@ -3,7 +3,7 @@ import 'package:send_money_app/utils/api_urls.dart';
 import 'package:send_money_app/utils/helpers/transaction_helper.dart';
 
 import '../../../../../api/client.dart';
-import '../models/transaction_model.dart';
+import '../../data/models/transaction_model.dart';
 import 'i_transaction_repository.dart';
 
 class TransactionRepository implements ITransactionRepository {

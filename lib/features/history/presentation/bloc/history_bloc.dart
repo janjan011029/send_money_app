@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../transaction/domain/models/transaction_model.dart';
+import '../../../transaction/data/models/transaction_model.dart';
 import '../../domain/repositories/i_history_repository.dart';
 
 part 'history_event.dart';
